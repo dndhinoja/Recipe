@@ -48,7 +48,6 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 		recipeCommand.setSource(source.getSource());
 		recipeCommand.setUrl(source.getUrl());
 		recipeCommand.setNotes(notesToNotesCommand.convert(source.getNotes()));
-		
 		CategoryCommand categoryCommand = new CategoryCommand();
 		Set<CategoryCommand> categoryCommands = new HashSet<CategoryCommand>();
 		for(Category category:source.getSetOfCategory()) {
