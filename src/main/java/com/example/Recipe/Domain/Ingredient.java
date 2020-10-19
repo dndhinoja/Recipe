@@ -28,6 +28,8 @@ public class Ingredient {
 	@OneToOne
 	private UnitOfMeasure unitOfMeasure;
 
+	
+	
 	public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
 		super();
 		this.description = description;
@@ -41,6 +43,10 @@ public class Ingredient {
 		this.amount = amount;
 		this.recipe = recipe;
 		this.unitOfMeasure = unitOfMeasure;
+	}
+
+	public Ingredient() {
+		super();
 	}
 
 	/*

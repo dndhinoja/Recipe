@@ -77,8 +77,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 		perfectGuacamole.setDirections("1.Cut the avocado, remove flesh: Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon."
 				+ "	2. Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)");
 		perfectGuacamole.setServings(3);
-		perfectGuacamole.setDescription("Be careful handling chiles");
+		perfectGuacamole.setDescription("perfectGuacamole-Be careful handling chiles");
 		perfectGuacamole.setDifficulty(Difficulty.EASY);
+		perfectGuacamole.setSource("Website");
+		perfectGuacamole.setUrl("https://github.com/springframeworkguru/spring5-recipe-app/blob/assignment-review-display-all-of-recipe/src/main/resources/templates/recipe/show.html");
 		
 		
 		/*
