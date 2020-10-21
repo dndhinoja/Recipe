@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.Recipe.Domain.Recipe;
@@ -46,6 +48,8 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 		return recipe.get();
 	}
+	
+	@Transactional
 	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
 		Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
 		

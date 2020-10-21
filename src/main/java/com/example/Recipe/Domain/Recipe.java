@@ -1,6 +1,5 @@
 package com.example.Recipe.Domain;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -78,16 +77,19 @@ public class Recipe {
 	 * return notes; }
 	 */
 	public void setNotes(Notes notes) {
+		if(notes!=null) {
 		this.notes = notes;
 		//setter
 		notes.setRecipe(this);
+		}
 	}
 	
 	//setter
 	public Recipe addIngredient(Ingredient ingredient) {
-		ingredient.setRecipe(this);
 		this.setOfIngredient.add(ingredient);
+		ingredient.setRecipe(this);
 		return this;
+		
 	}
 
 	/*

@@ -2,7 +2,6 @@ package com.example.Recipe.Domain;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+//@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
 

@@ -98,7 +98,7 @@ public class RecipeControllerTest {
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
 		mockMvc.perform(get("/recipe/update/2"))
 			   .andExpect(status().isOk())
-			   .andExpect(view().name("/rrecipe/addrecipe"))
+			   .andExpect(view().name("rrecipes/addrecipe"))
 			   .andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
 	}
 	
