@@ -1,13 +1,11 @@
 package com.example.Recipe.services;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import com.example.Recipe.Domain.UnitOfMeasure;
 import com.example.Recipe.commands.UnitOfMeasureCommand;
 
 public interface UnitOfMeasureService {
 
-	public List<UnitOfMeasureCommand> getUomList();
+	public Set<UnitOfMeasureCommand> getUomList();
 	
 }

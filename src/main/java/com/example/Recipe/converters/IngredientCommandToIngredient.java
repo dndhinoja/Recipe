@@ -18,13 +18,10 @@ import com.example.Recipe.repositories.RecipeRepository;
 public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient> {
 
 	private UnitOfMeasureCommandToUnitOfMeasure unitOfMeasureCommandToUnitOfMeasure;
-	RecipeRepository recipeRepository;
 
-	public IngredientCommandToIngredient(UnitOfMeasureCommandToUnitOfMeasure unitOfMeasureCommandToUnitOfMeasure,
-			RecipeRepository recipeRepository) {
+	public IngredientCommandToIngredient(UnitOfMeasureCommandToUnitOfMeasure unitOfMeasureCommandToUnitOfMeasure) {
 		super();
 		this.unitOfMeasureCommandToUnitOfMeasure = unitOfMeasureCommandToUnitOfMeasure;
-		this.recipeRepository = recipeRepository;
 	}
 
 	@Nullable

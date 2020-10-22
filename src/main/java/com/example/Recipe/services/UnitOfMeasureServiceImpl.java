@@ -1,7 +1,9 @@
 package com.example.Recipe.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -19,21 +21,23 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService{
 	UnitOfMeasureRepository unitOfMeasureRepository;
 	UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand;
 	
-	
-	public UnitOfMeasureServiceImpl(UnitOfMeasureRepository unitOfMeasureRepository) {
+	public UnitOfMeasureServiceImpl(UnitOfMeasureRepository unitOfMeasureRepository,
+			UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand) {
 		super();
 		this.unitOfMeasureRepository = unitOfMeasureRepository;
+		this.unitOfMeasureToUnitOfMeasureCommand = unitOfMeasureToUnitOfMeasureCommand;
 	}
 
 	@Override
-	public List<UnitOfMeasureCommand> getUomList() {
-		List<UnitOfMeasure> list = new ArrayList<UnitOfMeasure>();
+	public Set<UnitOfMeasureCommand> getUomList() {
+		Set<UnitOfMeasure> list = new HashSet<UnitOfMeasure>();
 		Iterable<UnitOfMeasure> iteableUom = unitOfMeasureRepository.findAll();
 		
 		return StreamSupport
 				.stream(iteableUom.spliterator(), false)
-				.map(unitOfMeasure->unitOfMeasureToUnitOfMeasureCommand.convert(unitOfMeasure))
-				.collect(Collectors.toList());
+				//.map(unitOfMeasure->unitOfMeasureToUnitOfMeasureCommand.convert(unitOfMeasure))
+				.map(unitOfMeasureToUnitOfMeasureCommand::convert)
+				.collect(Collectors.toSet());
 	}
 	
 }

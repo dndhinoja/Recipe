@@ -3,9 +3,12 @@ package com.example.Recipe.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.Recipe.commands.IngredientCommand;
 import com.example.Recipe.services.IngredientService;
 import com.example.Recipe.services.RecipeService;
 import com.example.Recipe.services.UnitOfMeasureService;
@@ -45,6 +48,13 @@ public class IngredientController {
 		model.addAttribute("ingredient", ingredientService.getIngredientByIdAndRecipeId(Long.valueOf(recipeId), Long.valueOf(ingredientId)));
 		model.addAttribute("uomList", unitOfMeasureSerive.getUomList());
 		return "rrecipes/ingredient/ingredientform";
+	}
+	
+	@PostMapping
+	@RequestMapping("/recipe/{recipeId}/ingredient")
+	public String saveOrUpdateIngredient(@ModelAttribute IngredientCommand ingredientCommand) {
+		IngredientCommand savedIngredientCommand = ingredientService.saveOrUpdateIngredientCommand(ingredientCommand);
+		return "redirect:/recipe/ingredient/"+savedIngredientCommand.getRecipeId()+"/show/"+savedIngredientCommand.getId();
 	}
 	
 }
