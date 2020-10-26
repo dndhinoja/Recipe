@@ -21,6 +21,7 @@ import com.example.Recipe.converters.IngredientCommandToIngredient;
 import com.example.Recipe.converters.IngredientToIngredientCommand;
 import com.example.Recipe.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import com.example.Recipe.converters.UnitOfMeasureToUnitOfMeasureCommand;
+import com.example.Recipe.repositories.IngredientRepository;
 import com.example.Recipe.repositories.RecipeRepository;
 import com.example.Recipe.repositories.UnitOfMeasureRepository;
 
@@ -31,6 +32,9 @@ class IngredientServiceImplTest {
 
     @Mock
     RecipeRepository recipeRepository;
+    
+    @Mock
+    IngredientRepository ingredientRepository;
 
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
@@ -46,7 +50,7 @@ class IngredientServiceImplTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		ingredientService = new IngredientServiceImpl(recipeRepository,ingredientToIngredientCommand,ingredientCommandToIngredient,unitOfMeasureRepository);
+		ingredientService = new IngredientServiceImpl(recipeRepository,ingredientToIngredientCommand,ingredientCommandToIngredient,unitOfMeasureRepository,ingredientRepository);
 	}
 	//@Ignore
 	@Test

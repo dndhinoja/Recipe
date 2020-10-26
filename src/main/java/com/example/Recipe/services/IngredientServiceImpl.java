@@ -1,5 +1,7 @@
 package com.example.Recipe.services;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -26,16 +28,18 @@ public class IngredientServiceImpl implements IngredientService {
 	final IngredientToIngredientCommand ingredientToIngredientCommand;
 	final IngredientCommandToIngredient ingredientCommandToIngredient;
 	final UnitOfMeasureRepository unitOfMeasureRepository;
+	final IngredientRepository ingredientRepository;
 
 	public IngredientServiceImpl(RecipeRepository recipeRepository,
 			IngredientToIngredientCommand ingredientToIngredientCommand,
 			IngredientCommandToIngredient ingredientCommandToIngredient,
-			UnitOfMeasureRepository unitOfMeasureRepository) {
+			UnitOfMeasureRepository unitOfMeasureRepository, IngredientRepository ingredientRepository) {
 		super();
 		this.recipeRepository = recipeRepository;
 		this.ingredientToIngredientCommand = ingredientToIngredientCommand;
 		this.ingredientCommandToIngredient = ingredientCommandToIngredient;
 		this.unitOfMeasureRepository = unitOfMeasureRepository;
+		this.ingredientRepository = ingredientRepository;
 	}
 
 	@Override
@@ -81,9 +85,10 @@ public class IngredientServiceImpl implements IngredientService {
 
 		if (!recipeOptional.isPresent()) {
 
-			log.error("not found id" + ingredientCommand.getId());
+			log.error("not found id" + ingredientCommand.getRecipeId());
 			return new IngredientCommand();
 		} else {
+
 			Recipe recipe = recipeOptional.get();
 
 			Optional<Ingredient> ingredientOptional = recipe.getSetOfIngredient().stream()
@@ -103,9 +108,50 @@ public class IngredientServiceImpl implements IngredientService {
 
 			Recipe savedRecipe = recipeRepository.save(recipe);
 
-			return ingredientToIngredientCommand.convert(savedRecipe.getSetOfIngredient().stream()
-					.filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId())).findFirst().get());
+			Optional<Ingredient> savedIngredient = savedRecipe.getSetOfIngredient().stream()
+					.filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId())).findFirst();
+
+			if (!savedIngredient.isPresent()) {
+				savedIngredient = savedRecipe.getSetOfIngredient().stream()
+						.filter(recipeIngredient -> recipeIngredient.getDescription()
+								.equals(ingredientCommand.getDescription()))
+						.filter(recipeIngredient -> recipeIngredient.getAmount().equals(ingredientCommand.getAmount()))
+						.filter(recipeIngredient -> recipeIngredient.getUnitOfMeasure().getId()
+								.equals(ingredientCommand.getUnitOfMeasureCommand().getId()))
+						.findFirst();
+
+			}
+
+			return ingredientToIngredientCommand.convert(savedIngredient.get());
 		}
 	}
 
+	public void deleteIngredientByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+
+		Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+		if (recipeOptional.isPresent()) {
+			Recipe recipe = recipeOptional.get();
+
+			Optional<Ingredient> ingredientOptional = recipe.getSetOfIngredient().stream()
+					.filter(ingredient -> ingredient.getId().equals(ingredientId)).findFirst();
+
+			if (ingredientOptional.isPresent()) {
+				Ingredient ingredient = ingredientOptional.get();
+
+				/*
+				 * ingredient.setRecipe(null); recipe.getSetOfIngredient().remove(ingredient);
+				 * recipeRepository.save(recipe);
+				 */
+
+				ingredient.setRecipe(null);
+				recipe.getSetOfIngredient().remove(ingredient);
+				ingredient.setUnitOfMeasure(null);
+				ingredientRepository.deleteById(ingredient.getId());
+
+			}
+		} else {
+			log.debug("RecipeId not found. Id:" + recipeId);
+		}
+	}
 }

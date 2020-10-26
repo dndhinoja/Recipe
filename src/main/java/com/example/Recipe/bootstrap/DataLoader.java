@@ -163,8 +163,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 		//Ingredient onion2 = new Ingredient("onion is must",new BigDecimal(1),perfectGuacamole,tableSpoonUom);
 		//perfectGuacamole.getSetOfIngredient().add(avocados1);
 		//perfectGuacamole.getSetOfIngredient().add(onion2);
-		Ingredient flour = new Ingredient("avocado is must",new BigDecimal(2),cupUom);
-		Ingredient patarLeaves = new Ingredient("onion is must",new BigDecimal(1),pinchUom);
+		Ingredient flour = new Ingredient("flour is must",new BigDecimal(2),cupUom);
+		Ingredient patarLeaves = new Ingredient("patarleaves is must",new BigDecimal(1),pinchUom);
 		patarvelia.addIngredient(flour);
 		patarvelia.addIngredient(patarLeaves);
 		

@@ -65,11 +65,16 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
+                                    <select class="form-control" th:field="*{difficulty}">
+                                    	<option th:each="difficultyLevel : ${T(com.example.Recipe.Domain.Difficulty).values()}"
+                                    			th:value="${difficultyLevel.name()}"
+                                    			th:text="${difficultyLevel.name()}">level</option>
+                                    </select>
+                                    <!-- <select class="form-control">
                                         <option>Easy</option>
                                         <option>Medium</option>
                                         <option>Hard</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                             <div class="row">

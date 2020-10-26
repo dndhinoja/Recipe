@@ -11,4 +11,6 @@ public interface IngredientService{
 	public IngredientCommand getIngredientByIdAndRecipeId(Long recipeId, Long ingredientId);
 	
 	public IngredientCommand saveOrUpdateIngredientCommand(IngredientCommand ingredientCommand);
+	
+	public void deleteIngredientByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
 }

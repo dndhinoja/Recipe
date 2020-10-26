@@ -100,7 +100,26 @@ class IngredientControllerTest {
 		mockMvc.perform(post("/recipe/1/ingredient").contentType(MediaType.APPLICATION_FORM_URLENCODED).param("id", "")
 				.param("description", "some string")).andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/recipe/ingredient/1/show/2"));
-
+	}
+	
+	@Test
+	void testNewIngredient() throws Exception{
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
+		mockMvc.perform(get("/recipe/ingredient/1/new"))
+		 		.andExpect(status().isOk())
+		 		.andExpect(view().name("rrecipes/ingredient/ingredientform"))
+		 		.andExpect(MockMvcResultMatchers.model().attributeExists("ingredient"))
+		 		.andExpect(MockMvcResultMatchers.model().attributeExists("uomList"));
+		
+	}
+	@Test
+	void testDeleteIngredient() throws Exception {
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
+		mockMvc.perform(get("/recipe/ingredient/1/delete/2"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/recipe/ingredients/1"));
+		
+		verify(ingredientService, times(1)).deleteIngredientByRecipeIdAndIngredientId(Mockito.anyLong(),Mockito.anyLong());
 	}
 
 }
