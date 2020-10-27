@@ -26,20 +26,18 @@ public class RecipeController {
 		super();
 		this.recipeService = recipeService;
 	}
-	//done
 	@RequestMapping("/recipes")
 	public String getResult(Model model) {
 		log.info("Hi I am in Controller");
 		model.addAttribute("recipes",recipeService.getRecipe());
 		return "rrecipes/index";
 	}
-	//done
 	@RequestMapping("/recipe/show/{id}")
 	public String GetRecipeByIdController(@PathVariable String id, Model model) {
 		model.addAttribute("recipe", recipeService.getRecipeById(new Long(id)));
 		return "Display/view";
 	}
-	//done
+	@GetMapping
 	@RequestMapping("/recipe/new")
 	public String newRecipe(Model model) {
 		model.addAttribute("recipe", new RecipeCommand());
@@ -60,7 +58,7 @@ public class RecipeController {
 		return "rrecipes/addrecipe";
 	}
 	
-	@GetMapping
+	@PostMapping
 	@RequestMapping("/recipe/delete/{id}")
 	public String delete(@PathVariable String id) {
 		recipeService.deleteRecipeById(Long.valueOf(id));

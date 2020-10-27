@@ -2,11 +2,13 @@ package com.example.Recipe.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.Recipe.commands.IngredientCommand;
 import com.example.Recipe.commands.UnitOfMeasureCommand;
@@ -70,8 +72,9 @@ public class IngredientController {
 		return "rrecipes/ingredient/ingredientform";
 	}
 	
-	@GetMapping
-	@RequestMapping("/recipe/ingredient/{recipeId}/delete/{ingredientId}")
+	@DeleteMapping
+	@PostMapping
+	@RequestMapping(value = "/recipe/ingredient/{recipeId}/delete/{ingredientId}")
 	public String deleteIngredient(@PathVariable String recipeId, @PathVariable String ingredientId) {
 		
 		ingredientService.deleteIngredientByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(ingredientId));

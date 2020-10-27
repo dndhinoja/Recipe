@@ -2,9 +2,11 @@ package com.example.Recipe.services;
 
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import com.example.Recipe.Domain.Recipe;
 import com.example.Recipe.commands.RecipeCommand;
-
+@Component
 public interface RecipeService {
 
 	public Set<Recipe> getRecipe();

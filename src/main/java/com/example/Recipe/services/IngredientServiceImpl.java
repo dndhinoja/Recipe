@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.PreRemove;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -126,6 +128,7 @@ public class IngredientServiceImpl implements IngredientService {
 		}
 	}
 
+	@Transactional
 	public void deleteIngredientByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
 
 		Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
@@ -144,11 +147,12 @@ public class IngredientServiceImpl implements IngredientService {
 				 * recipeRepository.save(recipe);
 				 */
 
-				ingredient.setRecipe(null);
-				recipe.getSetOfIngredient().remove(ingredient);
-				ingredient.setUnitOfMeasure(null);
-				ingredientRepository.deleteById(ingredient.getId());
-
+				
+				  ingredient.setRecipe(null); 
+				  recipe.getSetOfIngredient().remove(ingredient);
+				  ingredient.setUnitOfMeasure(null);
+				  ingredientRepository.delete(ingredient);
+				 
 			}
 		} else {
 			log.debug("RecipeId not found. Id:" + recipeId);
